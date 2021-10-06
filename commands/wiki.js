@@ -46,13 +46,15 @@ module.exports = {
 		// Format into an embed
 
 		const embed = new MessageEmbed()
-			.setColor('#EFFF00')
+			.setColor('#C0D6E4')
 			.setTitle(resultingPage.query.pages[pageid].title)
 			.setURL(`https://en.wikipedia.org/?curid=${resultingPage.query.pages[pageid].pageid}`)
+			.setAuthor('Wikipedia', 'https://en.wikipedia.org/static/images/project-logos/enwiki.png', 'https://en.wikipedia.org')
 			.setThumbnail(`${pageThumbnail}`)
 			.addFields(
-				{ name: 'Summary', value: trim(resultingPage.query.pages[pageid].extract, 1024) },
-			);
+				{ name: 'Summary', value: trim(resultingPage.query.pages[pageid].extract, 600) },
+			)
+			.setFooter('This summary is from the first entry from Wikipedia based on your search terms.');
 
 		interaction.editReply({ embeds: [embed] });
 	},
