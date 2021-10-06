@@ -1,0 +1,28 @@
+{
+  "name": "serious-bot",
+  "version": "1.0.0",
+  "description": "JavaScript Discord Bot for learning and testing",
+  "main": "serious-bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Serious-Table/serious-bot.git"
+  },
+  "author": "Serious Table",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Serious-Table/serious-bot/issues"
+  },
+  "homepage": "https://github.com/Serious-Table/serious-bot#readme",
+  "dependencies": {
+    "@discordjs/builders": "^0.6.0",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "discord-api-types": "^0.23.1",
+    "discord.js": "^13.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  }
+}
