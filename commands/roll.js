@@ -23,7 +23,7 @@ module.exports = {
 		// Get our options
 		const sides = interaction.options.getInteger('sides');
 		let dice = interaction.options.getInteger('dice');
-		const verbosity = interaction.options.getString('verbosity');
+		let verbosity = interaction.options.getString('verbosity');
 
 		// Check if we have < 2 Sides to prevent trolling
 		if (sides < 2) {
@@ -45,22 +45,56 @@ module.exports = {
 		if (dice === 1) {
 			await interaction.deferReply();
 
-			let result = Math.random() * ((sides + 1) - 1) + 1;
-			result = Math.floor(result);
+			// Roll our die
+			let result = RollDice(sides);
 
 			// Format into a pretty embed
 			const embed = new MessageEmbed()
 				.setColor('#C0D6E4')
 				.setTitle(`:game_die: Roll Results (1d${sides.toString()}) :game_die:`)
 				.addFields(
-					{ name: 'Die 1', value: result.toString()},
+					{ name: 'Total', value: result.toString()},
 				);
 
 			// Send the embed to our reply.
 			interaction.editReply({ embeds: [embed] });
 		}
 		else {
-			return interaction.reply({content: 'Functionality still a work in progress!', ephemeral:true});
+			await interaction.deferReply();
+
+			// Create our results array and total
+			const results_array = new Array();
+			let results_total = 0;
+
+			// Roll our dice.
+			for (i = 0; i < dice; i++) {
+				results_array[i] = RollDice(sides);
+				results_total = results_total + results_array[i];
+			}
+
+			// Format into a pretty embed
+			const embed = new MessageEmbed()
+				.setColor('#C0D6E4')
+				.setTitle(`:game_die: Roll Results (${dice}d${sides.toString()}) :game_die:`)
+				.addFields(
+					{ name: 'Total', value: results_total.toString()},
+				);
+			// Expound if Verbose was requested.
+			if (verbosity === 'Verbose' || verbosity === 'verbose') {
+				for(j=0; j < results_array.length; j++) {
+					embed.addFields(
+							{ name: `Die ${j + 1}`, value: results_array[j].toString()}
+						);
+				 }
+			}
+
+			// Send the embed to our reply.
+			interaction.editReply({ embeds: [embed] });
+		}
+
+		function RollDice(num_of_sides){
+			let result = Math.random() * ((num_of_sides + 1) - 1) + 1;
+			return Math.floor(result);
 		}
 
 	},
