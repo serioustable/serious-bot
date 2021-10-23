@@ -50,7 +50,7 @@ module.exports = {
 
 			// Format into a pretty embed
 			const embed = new MessageEmbed()
-				.setColor('#C0D6E4')
+				.setColor('#E61313')
 				.setTitle(`:game_die: Roll Results (1d${sides.toString()}) :game_die:`)
 				.addFields(
 					{ name: 'Total', value: result.toString()},
@@ -74,18 +74,23 @@ module.exports = {
 
 			// Format into a pretty embed
 			const embed = new MessageEmbed()
-				.setColor('#C0D6E4')
+				.setColor('#E61313')
 				.setTitle(`:game_die: Roll Results (${dice}d${sides.toString()}) :game_die:`)
 				.addFields(
 					{ name: 'Total', value: results_total.toString()},
 				);
 			// Expound if Verbose was requested.
 			if (verbosity === 'Verbose' || verbosity === 'verbose') {
+				let results_string = '';
+
+				// Construct a string of results based on the length of the array
 				for(j=0; j < results_array.length; j++) {
-					embed.addFields(
-							{ name: `Die ${j + 1}`, value: results_array[j].toString()}
-						);
+					results_string = results_string + results_array[j].toString() + ' ';
 				 }
+				 // Add our Rolls field to the existing embed.
+				 embed.addFields(
+						 { name: `Rolls`, value: results_string}
+					 );
 			}
 
 			// Send the embed to our reply.
