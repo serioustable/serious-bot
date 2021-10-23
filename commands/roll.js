@@ -53,7 +53,7 @@ module.exports = {
 				.setColor('#C0D6E4')
 				.setTitle(`:game_die: Roll Results (1d${sides.toString()}) :game_die:`)
 				.addFields(
-					{ name: 'Die', value: result.toString()},
+					{ name: 'Die 1', value: result.toString()},
 				);
 
 			// Send the embed to our reply.
